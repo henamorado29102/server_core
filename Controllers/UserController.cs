@@ -1,6 +1,7 @@
 using core.Data;
 using core.Dto;
 using core.Models;
+using core.Service.Interface;
 using core.Util;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,21 +12,21 @@ namespace core.controller
     [Route("api/user")]
     public class UserController : ControllerBase
     {
-        private readonly ApplicationDBContext _dbContext;
+        private readonly IUserService _userService;
 
-        public UserController(ApplicationDBContext dbContext)
+        public UserController(IUserService userService)
         {
-            _dbContext = dbContext ?? throw new ArgumentException(null, nameof(dbContext));
+            _userService = userService;
         }
         [HttpGet]
-        public async Task<ActionResult<ApiResponseSusses<IEnumerable<User>>>> GetAllUsers()
+        public ActionResult<ApiResponseSusses<IEnumerable<User>>> GetAllUsers()
         {
-            var users = await _dbContext.User.ToListAsync();
+            var users = _userService.GetAll();
             var response = new ApiResponseSusses<IEnumerable<User>>("Users retrieved successfully", users);
             return Ok(response);
         }
 
-        [HttpGet("{id}")]
+        /* [HttpGet("{id}")]
         public async Task<ActionResult<ApiResponseSusses<User>>> GetUser(int id)
         {
             var user = await _dbContext.User.FindAsync(id);
@@ -65,7 +66,7 @@ namespace core.controller
             _dbContext.SaveChanges();
             var response = new ApiResponseSusses<User>("User update successfully", u);
             return Ok(response);
-        }
+        } */
 
     }
 }
