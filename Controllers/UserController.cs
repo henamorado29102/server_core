@@ -26,10 +26,10 @@ namespace core.controller
             return Ok(response);
         }
 
-        /* [HttpGet("{id}")]
-        public async Task<ActionResult<ApiResponseSusses<User>>> GetUser(int id)
+        [HttpGet("{id}")]
+        public ActionResult<ApiResponseSusses<User>> GetUser(int id)
         {
-            var user = await _dbContext.User.FindAsync(id);
+            var user = _userService.GetById(id);
             if (user == null)
             {
                 var errorResponse = new ApiResponseError("User not found");
@@ -45,28 +45,23 @@ namespace core.controller
         public ActionResult<User> AddUser(UserDto user)
         {
             User u = new(user.Name, user.Lastname, user.Email);
-            _dbContext.User.Add(u);
-            _dbContext.SaveChanges();
+            u = _userService.Save(u);
             return base.Ok(u);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<ApiResponseSusses<User>>> UpdateUser(int id, [FromBody] UserDto user)
+        public ActionResult<ApiResponseSusses<User>> UpdateUser(int id, [FromBody] UserDto user)
         {
-            var u = await _dbContext.User.FindAsync(id);
+            var u = _userService.Update(id, user);
             if (u == null)
             {
                 var errorResponse = new ApiResponseError("User not found");
                 return NotFound(errorResponse);
             }
-            u.Email = user.Email;
-            u.Name = user.Name; 
-            u.Lastname = user.Lastname;
-            _dbContext.User.Update(u);
-            _dbContext.SaveChanges();
+            
             var response = new ApiResponseSusses<User>("User update successfully", u);
             return Ok(response);
-        } */
+        }
 
     }
 }

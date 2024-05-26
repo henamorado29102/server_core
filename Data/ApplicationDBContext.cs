@@ -10,6 +10,7 @@ namespace core.Data
     public class ApplicationDBContext(DbContextOptions options) : DbContext(options) 
     {
         public DbSet<User> User { get; set;}
+        public DbSet<Todo> Todo { get; set;}
         
     }
 }

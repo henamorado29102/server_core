@@ -8,7 +8,7 @@ namespace core.Models
         public string Name { get; set;} = string.Empty;
         public string Lastname { get; set;} = string.Empty;
         public string Email { get; set;} = string.Empty;
-
+        public ICollection<Todo> Tasks { get; set; } = new List<Todo>();
         public User(){
         }
 
