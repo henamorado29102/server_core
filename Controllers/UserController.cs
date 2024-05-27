@@ -4,7 +4,6 @@ using core.Models;
 using core.Service.Interface;
 using core.Util;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace core.controller
 {

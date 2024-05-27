@@ -11,15 +11,19 @@ namespace core.Service
 {
     public class UserService : IUserService
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IRepository<User> _userRepository;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IRepository<User> userRepository)
         {
             _userRepository = userRepository;
         }
         public bool Delete(int id)
         {
-            return _userRepository.Delete(id);
+            User? u = _userRepository.GetById(id);
+            if (u == null){
+                return false;
+            }
+            return _userRepository.Delete(u);
         }
 
         public List<User> GetAll()

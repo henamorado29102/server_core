@@ -11,6 +11,7 @@ namespace core.Data
     {
         public DbSet<User> User { get; set;}
         public DbSet<Todo> Todo { get; set;}
+        public DbSet<Comment> Comment { get; set;}
         
     }
 }
