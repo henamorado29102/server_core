@@ -1,5 +1,6 @@
 using core.Data;
 using core.Dto;
+using core.Filter;
 using core.Models;
 using core.Service.Interface;
 using core.Util;
@@ -17,6 +18,8 @@ namespace core.controller
         {
             _userService = userService;
         }
+
+        [ServiceFilter(typeof(SampleActionFilter))]
         [HttpGet]
         public ActionResult<ApiResponseSusses<IEnumerable<User>>> GetAllUsers()
         {

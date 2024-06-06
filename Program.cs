@@ -1,4 +1,6 @@
 using core.Data;
+using core.Filter;
+using core.Middleware;
 using core.Models;
 using core.Repository;
 using core.Repository.Interface;
@@ -25,12 +27,17 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddScoped<ITodoService, TodoService>();
+builder.Services.AddScoped<SampleActionFilter>();
+builder.Services.AddScoped<SimpleAsyncActionFilter>();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDBContext>(options =>{
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 var app = builder.Build();
+
+app.UseSampleMiddleware();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
