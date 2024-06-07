@@ -17,15 +17,18 @@ namespace core.Middleware
 
         public async Task Invoke(HttpContext context)
         {
-            _logger.LogInformation("[Middleware - BEFORE]");
+            _logger.LogInformation("[Middleware - BEFORE]");            
+            context.Response.Headers.CacheControl = "no-store";
+            context.Response.Headers.Pragma = "no-cache";
+            context.Response.Headers.Expires = "0";
             await _next(context);
             _logger.LogInformation("[Middleware - AFTER]");
-        }        
+        }
     }
 
     public static class SimpleMiddlewareExtensions
     {
-        public static IApplicationBuilder   UseSampleMiddleware(this IApplicationBuilder builder)
+        public static IApplicationBuilder UseSampleMiddleware(this IApplicationBuilder builder)
         {
             return builder.UseMiddleware<SimpleMiddleware>();
         }
