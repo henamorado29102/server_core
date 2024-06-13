@@ -31,6 +31,11 @@ namespace core.Service
             return _userRepository.GetAll();
         }
 
+        public async Task<List<User>> GetAllPaginate(int pageIndex, int pageSize)
+        {
+            return await _userRepository.GetAllAsync(pageIndex, pageSize);
+        }
+
         public User? GetById(int id)
         {
             return _userRepository.GetById(id);

@@ -31,6 +31,16 @@ namespace core.Service
             return _todoRepository.GetAll().Where(t => t.UserId == userId).ToList();
         }
 
+        public List<Todo> GetAll()
+        {
+            return [.. _todoRepository.GetAll()];
+        }
+
+        public Task<List<Todo>> GetAllAsync()
+        {
+            return _todoRepository.GetAllAsync();
+        }
+
         public Todo? GetById(int id)
         {
             return _todoRepository.GetById(id);

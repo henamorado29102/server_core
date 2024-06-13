@@ -28,6 +28,15 @@ namespace core.controller
             return Ok(response);
         }
 
+        [HttpPost("paginate")]
+        public async Task<ActionResult<ApiResponsePaginate<IEnumerable<User>>>> GetAllUsersPaginate(PaginateDto paginateDto)
+        {
+            var users = await _userService.GetAllPaginate(paginateDto.PageIndex, paginateDto.PageSize);
+            var total = _userService.GetAll().Count;
+            var response = new ApiResponsePaginate<IEnumerable<User>>("Users retrieved successfully", total, users);
+            return Ok(response);
+        }
+
         [HttpGet("{id}")]
         public ActionResult<ApiResponseSusses<User>> GetUser(int id)
         {
@@ -65,5 +74,9 @@ namespace core.controller
             return Ok(response);
         }
 
+    }
+
+    public class ApiResponsePaginate
+    {
     }
 }

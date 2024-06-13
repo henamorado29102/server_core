@@ -9,6 +9,9 @@ namespace core.Service.Interface
     public interface ITodoService
     {
         Todo? GetById(int id);
+
+        List<Todo> GetAll();
+        Task<List<Todo>> GetAllAsync();
         List<Todo> GetAll(int userId);
         bool Delete(int id);
         Todo? Update(int id, Todo todo);

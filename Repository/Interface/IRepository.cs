@@ -10,6 +10,8 @@ namespace core.Repository.Interface
     {
         T? GetById(int id);        
         List<T> GetAll();
+        Task<List<T>> GetAllAsync();
+        Task<List<T>> GetAllAsync(int pageIndex, int pageSize);
         bool Delete(T entity);
         T Update(T entity);
         T Save(T entity);        

@@ -30,6 +30,16 @@ namespace core.Repository.Interface
             return _dbSet.ToList();
         }
 
+        public Task<List<T>> GetAllAsync()
+        {
+            return _dbSet.ToListAsync();
+        }
+
+        public Task<List<T>> GetAllAsync(int pageIndex, int pageSize)
+        {
+            return _dbSet.Skip(pageIndex * pageSize).Take(pageSize).ToListAsync();
+        }
+
         public T? GetById(int id)
         {
             T? entity = _dbSet.Find(id);
