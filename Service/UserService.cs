@@ -46,9 +46,9 @@ namespace core.Service
             return _userRepository.Save(user);
         }
 
-        public User? Update(int id, UserDto user)
+        public User? Update(UpdateUserDto user)
         {
-            User? u = _userRepository.GetById(id);
+            User? u = _userRepository.GetById(user.Id);
             if (u != null){
                 u.Name = user.Name;
                 u.Email = user.Email;

@@ -60,10 +60,10 @@ namespace core.controller
             return base.Ok(u);
         }
 
-        [HttpPut("{id}")]
-        public ActionResult<ApiResponseSusses<User>> UpdateUser(int id, [FromBody] UserDto user)
+        [HttpPut]
+        public ActionResult<ApiResponseSusses<User>> UpdateUser([FromBody] UpdateUserDto user)
         {
-            var u = _userService.Update(id, user);
+            var u = _userService.Update(user);
             if (u == null)
             {
                 var errorResponse = new ApiResponseError("User not found");

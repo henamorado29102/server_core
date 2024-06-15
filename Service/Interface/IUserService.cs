@@ -14,7 +14,7 @@ namespace core.Service.Interface
         List<User> GetAll();
         Task<List<User>> GetAllPaginate(int pageIndex, int pageSize);
         bool Delete(int id);
-        User? Update(int id, UserDto user);
+        User? Update(UpdateUserDto user);
         User Save(User user);        
     }
 }
