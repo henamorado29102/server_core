@@ -6,6 +6,7 @@ using core.Repository;
 using core.Repository.Interface;
 using core.Service;
 using core.Service.Interface;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +38,11 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>{
     .EnableDetailedErrors();
 });
 
+builder.Services.AddAuthorization();
+
+builder.Services.AddIdentityApiEndpoints<IdentityUser>()
+    .AddEntityFrameworkStores<ApplicationDBContext>();
+
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
@@ -53,7 +59,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.MapIdentityApi<IdentityUser>();
 app.UseHttpsRedirection();
 app.UseRouting();
 

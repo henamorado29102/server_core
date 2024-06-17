@@ -4,6 +4,7 @@ using core.Filter;
 using core.Models;
 using core.Service.Interface;
 using core.Util;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace core.controller
@@ -20,7 +21,7 @@ namespace core.controller
         }
 
         [ServiceFilter(typeof(SampleActionFilter))]
-        [HttpGet]
+        [HttpGet, Authorize]
         public ActionResult<ApiResponseSusses<IEnumerable<User>>> GetAllUsers()
         {
             var users = _userService.GetAll();
@@ -28,7 +29,7 @@ namespace core.controller
             return Ok(response);
         }
 
-        [HttpPost("paginate")]
+        [HttpPost("paginate"), Authorize]
         public async Task<ActionResult<ApiResponsePaginate<IEnumerable<User>>>> GetAllUsersPaginate(PaginateDto paginateDto)
         {
             var users = await _userService.GetAllPaginate(paginateDto.PageIndex, paginateDto.PageSize);
@@ -37,7 +38,7 @@ namespace core.controller
             return Ok(response);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}"), Authorize]
         public ActionResult<ApiResponseSusses<User>> GetUser(int id)
         {
             var user = _userService.GetById(id);
@@ -52,7 +53,7 @@ namespace core.controller
 
 
         }
-        [HttpPost]
+        [HttpPost, Authorize]
         public ActionResult<User> AddUser(UserDto user)
         {
             User u = new(user.Name, user.Lastname, user.Email);
@@ -60,7 +61,7 @@ namespace core.controller
             return base.Ok(u);
         }
 
-        [HttpPut]
+        [HttpPut, Authorize]
         public ActionResult<ApiResponseSusses<User>> UpdateUser([FromBody] UpdateUserDto user)
         {
             var u = _userService.Update(user);
